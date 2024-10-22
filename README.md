@@ -1,5 +1,5 @@
 # DataProcess
 包含了数据处理流程。
-DataPrep4LLM_Algos:主要包含了模型混合解析方案及其框架；
-dataProcessAlgorithm:主要包含了GROBID算法和Nougat算法处理流程；
-DataProcessPipeline：主要包含
+DataPrep4LLM_Algos:包含了模型混合解析方案及其框架；
+dataProcessAlgorithm:包含了GROBID算法和Nougat算法处理流程；
+DataProcessPipeline：专门处理大规模数据任务的数据后端服务。
