@@ -1,2 +1,5 @@
 # DataProcess
-数据处理算法、框架、流程，简介...待续未完。
+包含了数据处理流程。
+DataPrep4LLM_Algos:主要包含了模型混合解析方案及其框架；
+dataProcessAlgorithm:主要包含了GROBID算法和Nougat算法处理流程；
+DataProcessPipeline：主要包含
