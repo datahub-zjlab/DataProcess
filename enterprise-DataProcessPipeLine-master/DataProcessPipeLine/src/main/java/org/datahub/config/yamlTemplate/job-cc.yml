@@ -1,0 +1,37 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: pipeline-job-{{.JobID}}-service
+  namespace: client-sdk-test
+spec:
+  parallelism: {{.PodNumber}}
+  completions: {{.PodNumber}}
+  ttlSecondsAfterFinished: 600
+  template:
+    spec:
+      imagePullSecrets:
+        - name: acr-image-auth
+      containers:
+        - name: data-pipeline
+          image: cr.registry.res.cloud.wuxi-yqgcy.cn/ddegeogpt-prod/data_pipeline:v1.7
+          command:
+            - bash
+            - start_yq.sh
+            - "{{.ServiceURL}}"
+            - "{{.JobID}}"
+            - "{{.ParseType}}"
+            - "{{.TagType}}"
+            - "{{.CleanType}}"
+            - "{{.ThreadNum}}"
+            - "{{.OutputPath}}"
+            - "{{.JobTypeName}}"
+            - "{{.JobType}}"
+          volumeMounts:
+            - name: nfs-volume
+              mountPath: /workspace/subject_textclf
+      restartPolicy: Never
+      volumes:
+        - name: nfs-volume
+          nfs:
+            path: /data/nfsshare
+            server: 172.27.213.40

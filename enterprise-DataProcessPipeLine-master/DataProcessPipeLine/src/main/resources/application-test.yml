@@ -1,0 +1,49 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    # mysql 配置
+    mysql:
+      jdbc-url: jdbc:mysql://172.27.213.102:3306/data_process
+      username: zjlab
+      password: ZJppml.2021
+      driver-class-name: com.mysql.cj.jdbc.Driver # 对于MySQL 8.x及以上版本，推荐使用这个驱动类名
+    # clickhouse 配置
+    clickhouse:
+      driver-class-name: ru.yandex.clickhouse.ClickHouseDriver
+      # 本地环境ClickHouse访问地址
+      jdbc-url: "jdbc:clickhouse://172.27.213.44:31238/process"
+      username: zjlab
+      password: zjlab
+      initialSize: 10
+      maxActive: 100
+      minIdle: 10
+      maxWait: 6000
+      validationQuery: SELECT 1
+      properties:
+        max_execution_time: 60000
+        socket_timeout: 60000
+  # redis 配置
+  redis:
+    # 地址
+    host: 172.27.213.102
+    # 端口，默认为6379
+    port: 6379
+    # 密码
+    password: ZJppml.2021
+    # 连接超时时间
+    timeout: 10s
+    database: 0
+  # 禁用spring security配置
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
+k8sConfig:
+  file:
+    path:
+      relative: /src/main/java
+      job: /org/datahub/config/yamlTemplate/job-cc.yml
+  serviceUrl: http://172.27.213.102:8080
+
+environment: yunqi

@@ -1,0 +1,12 @@
+server:
+  port: 8082
+clickhouse:
+  url: "jdbc:clickhouse://clickhouse.clickhouse.svc.cluster.local:8123/scihub2"
+  driverClassName: ru.yandex.clickhouse.ClickHouseDriver
+  username: zjlab
+  password: zjlab
+  initialSize: 10
+  maxActive: 100
+  minIdle: 10
+  maxWait: 6000
+  validationQuery: SELECT 1

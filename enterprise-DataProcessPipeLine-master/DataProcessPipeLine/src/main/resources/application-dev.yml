@@ -1,0 +1,72 @@
+server:
+  port: 8080
+
+# 设置整个应用的日志级别为 DEBUG
+logging:
+  level:
+    root: DEBUG
+    org.springframework.web: DEBUG
+    org.apache.coyote.http11: DEBUG
+
+spring:
+  datasource:
+    # mysql 配置
+    mysql:
+      jdbc-url: jdbc:mysql://10.200.48.76:3306/data_process
+      username: zjlab
+      password: ZJppml.2021
+      driver-class-name: com.mysql.cj.jdbc.Driver # 对于MySQL 8.x及以上版本，推荐使用这个驱动类名
+    # clickhouse 配置
+    clickhouse:
+      driver-class-name: ru.yandex.clickhouse.ClickHouseDriver
+      # 本地环境ClickHouse访问地址
+      jdbc-url: "jdbc:clickhouse://10.200.48.74:8123/process"
+      username: zjlab
+      password: zjlab
+      initialSize: 10
+      maxActive: 100
+      minIdle: 10
+      maxWait: 6000
+      validationQuery: SELECT 1
+      properties:
+        max_execution_time: 60000
+        socket_timeout: 60000
+  # redis 配置
+  redis:
+    # 地址
+    host: 10.200.48.76
+    # 端口，默认为6379
+    port: 6379
+    # 密码
+    password: ZJppml.2021
+    # 连接超时时间
+    timeout: 10s
+    database: 0
+  # 禁用spring security配置
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
+k8sConfig:
+  file:
+    path:
+      relative: /src/main/java
+      job: /org/datahub/config/yamlTemplate/job-cc.yml
+  serviceUrl: http://10.200.48.76:8080
+
+environment: zhijiang
+
+zjcpConfig:
+  urls:
+    service: http://zjcp.zhejianglab.cn:38080
+    token: /api/open/credentials
+    createJob: /api/open/open-job/origin/v2/createJob
+    deleteJob: /api/open/open-job/user/v1/deleteJob
+  credentials:
+    appKey: 6a0f59bd46ec4e44bfd3b8cbe70f5395
+    appSecret: ddc6224168ea47bda71680badd338599
+  user:
+    id: 585398485541453824
+  job:
+    subMissionId: pr-7986679722762338304
+    image: 10.200.88.53/liuyangyang-zhejianglab.com/data_pipeline:v1.8
+    volumeId: vol-8003538313461092352
