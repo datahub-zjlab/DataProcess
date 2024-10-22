@@ -1,0 +1,11 @@
+torch
+unimernet
+matplotlib
+PyMuPDF
+ultralytics
+paddlepaddle-gpu
+paddleocr==2.7.3
+surya-ocr==0.4.15
+transformers==4.40.0
+rapidocr-onnxruntime
+rapid-table
